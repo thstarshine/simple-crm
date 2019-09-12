@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const AutoLoad = require('fastify-autoload');
 
@@ -13,14 +11,14 @@ module.exports = function(fastify, opts, next) {
     // through your application
     fastify.register(AutoLoad, {
         dir: path.join(__dirname, 'plugins'),
-        options: Object.assign({}, opts),
+        options: { ...opts },
     });
 
     // This loads all plugins defined in services
     // define your routes in one of these
     fastify.register(AutoLoad, {
         dir: path.join(__dirname, 'services'),
-        options: Object.assign({}, opts),
+        options: { ...opts },
     });
 
     // Make sure to call next when done

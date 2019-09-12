@@ -1,12 +1,10 @@
-'use strict'
+module.exports = function(fastify, opts, next) {
+    fastify.get('/example', function(request, reply) {
+        reply.send('this is an example');
+    });
 
-module.exports = function (fastify, opts, next) {
-  fastify.get('/example', function (request, reply) {
-    reply.send('this is an example')
-  })
-
-  next()
-}
+    next();
+};
 
 // If you prefer async/await, use the following
 //
