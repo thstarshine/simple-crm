@@ -1,35 +1,56 @@
 {
-  "private": true,
-  "homepage": "https://create-react-app-redux.now.sh",
-  "scripts": {
-    "deploy": "now && now alias",
-    "start": "react-scripts start",
-    "now-start": "serve -s ./build",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "precommit": "pretty-quick --staged"
-  },
-  "devDependencies": {
-    "prettier": "1.18.2",
-    "react-scripts": "2.1.8"
-  },
-  "dependencies": {
-    "connected-react-router": "4.5.0",
-    "react": "16.9.0",
-    "react-dom": "16.9.0",
-    "react-redux": "5.1.1",
-    "react-router": "4.4.0-beta.8",
-    "react-router-dom": "4.4.0-beta.8",
-    "redux": "4.0.4",
-    "redux-thunk": "2.3.0",
-    "sanitize.css": "7.0.3",
-    "serve": "10.1.2"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    "homepage": "https://github.com/thstarshine/simple-crm",
+    "license": "MIT",
+    "scripts": {
+        "build": "react-scripts build",
+        "dev-server": "fastify start -l info -P ./server/app.js",
+        "eject": "react-scripts eject",
+        "precommit": "pretty-quick --staged",
+        "start": "react-scripts start",
+        "start-server": "fastify start -l info ./server/app.js",
+        "test": "react-scripts test --env=jsdom",
+        "test-server": "tap ./server/test/**/*.test.js"
+    },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ],
+    "dependencies": {
+        "connected-react-router": "4.5.0",
+        "fastify": "^2.0.0",
+        "fastify-autoload": "^1.0.0",
+        "fastify-cli": "^1.2.0",
+        "fastify-plugin": "^1.5.0",
+        "react": "16.9.0",
+        "react-dom": "16.9.0",
+        "react-redux": "5.1.1",
+        "react-router": "4.4.0-beta.8",
+        "react-router-dom": "4.4.0-beta.8",
+        "redux": "4.0.4",
+        "redux-thunk": "2.3.0",
+        "sanitize.css": "7.0.3",
+        "serve": "10.1.2"
+    },
+    "devDependencies": {
+        "eslint": "^6.3.0",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-config-prettier": "^6.3.0",
+        "eslint-plugin-import": "^2.18.2",
+        "eslint-plugin-prettier": "^3.1.0",
+        "mocha": "^6.2.0",
+        "mockery": "^2.1.0",
+        "nodemon": "^1.18.7",
+        "nyc": "^14.1.1",
+        "prettier": "1.18.2",
+        "react-scripts": "3.1.1",
+        "should": "~4.0.4",
+        "supertest": "^3.0.0",
+        "tap": "^12.5.3"
+    },
+    "engines": {
+        "node": "10.16.3",
+        "npm": "6.4.1"
+    }
 }
