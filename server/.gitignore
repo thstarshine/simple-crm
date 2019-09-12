@@ -60,3 +60,5 @@ profile*
 # generated code
 examples/typescript-server.js
 test/types/index.js
+
+config/index.js
