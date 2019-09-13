@@ -1,5 +1,6 @@
 const path = require('path');
 const AutoLoad = require('fastify-autoload');
+const Swagger = require('fastify-swagger');
 const Sequelize = require('./sequelize');
 const config = require('./config');
 const models = require('./models');
@@ -18,7 +19,10 @@ module.exports = function(fastify, opts, next) {
             models,
         })
         .after(() => {
-            const { Customer } = fastify.sequelize.models;
+            const { Customer, CustomerNote } = fastify.sequelize.models;
+            // define relations
+            CustomerNote.belongsTo(Customer, { foreignKey: 'customerId' });
+            Customer.hasMany(CustomerNote, { foreignKey: 'customerId' });
             // Sync all models that aren't already in the database
             // fastify.sequelize.sync()
             // Force sync all models
@@ -26,8 +30,40 @@ module.exports = function(fastify, opts, next) {
                 Customer.create({
                     name: '123',
                 });
+                CustomerNote.create({
+                    customerId: 1,
+                    description: '123s note',
+                });
             });
         });
+
+    fastify.register(Swagger, {
+        exposeRoute: true,
+        routePrefix: '/documentation',
+        swagger: {
+            info: {
+                title: 'Test swagger',
+                description: 'testing the fastify swagger api',
+                version: '0.1.0',
+            },
+            externalDocs: {
+                url: 'https://swagger.io',
+                description: 'Find more info here',
+            },
+            host: 'localhost',
+            schemes: ['http'],
+            consumes: ['application/json'],
+            produces: ['application/json'],
+            tags: [{ name: 'user', description: 'User related end-points' }],
+            securityDefinitions: {
+                apiKey: {
+                    type: 'apiKey',
+                    name: 'apiKey',
+                    in: 'header',
+                },
+            },
+        },
+    });
 
     // This loads all plugins defined in plugins
     // those should be support plugins that are reused
@@ -46,6 +82,10 @@ module.exports = function(fastify, opts, next) {
         options: {
             ...opts,
         },
+    });
+
+    fastify.ready(() => {
+        fastify.swagger();
     });
 
     // Make sure to call next when done
