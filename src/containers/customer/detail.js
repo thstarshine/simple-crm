@@ -18,7 +18,7 @@ const CustomerDetail = props => {
     } = props;
     const { params } = match;
     const [notes, updateNotes] = useState([]);
-    const [status, updateStatus] = useState([]);
+    const [status, updateStatus] = useState('current');
 
     // fetch customer data
     useEffect(() => {
@@ -36,19 +36,24 @@ const CustomerDetail = props => {
     const addNote = () => {
         updateNotes(prev => {
             const newNote = {
-                description: 'enter new desc here',
+                description: '',
             };
             return prev.concat([newNote]);
         });
     };
-
+    const updateNote = (idx, e) => {
+        const val = e.target.value;
+        updateNotes(prev => {
+            prev[idx].description = val;
+            return [...prev];
+        });
+    };
     const deleteNote = idx => {
         updateNotes(prev => {
             prev[idx].deleted = true;
             return [...prev];
         });
     };
-
     const changeStatus = e => {
         updateStatus(e.target.value);
     };
@@ -68,7 +73,15 @@ const CustomerDetail = props => {
                     } else {
                         return (
                             <tr key={i}>
-                                <td colSpan="5">{row.description}</td>
+                                <td colSpan="5">
+                                    <textarea
+                                        rows="1"
+                                        cols="50"
+                                        placeholder="write some descriptions here"
+                                        value={row.description}
+                                        onChange={e => updateNote(i, e)}
+                                    ></textarea>
+                                </td>
                                 <td>
                                     <button onClick={() => deleteNote(i)}>Delete</button>
                                 </td>
