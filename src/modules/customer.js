@@ -12,7 +12,7 @@ export const UPDATE_CUSTOMER_FAILED = 'UPDATE_CUSTOMER_FAILED';
 
 const initialState = {
     customers: [],
-    currentCustomer: {},
+    currentCustomer: { CustomerNotes: [] },
     loading: false,
 };
 
@@ -119,14 +119,25 @@ export const fetchCustomer = id => {
     };
 };
 
-export const updateCustomer = () => {
-    return dispatch => {
+export const updateCustomer = (id, status, notes) => {
+    return async dispatch => {
         dispatch({
             type: UPDATING_CUSTOMER,
         });
-
-        dispatch({
-            type: UPDATE_CUSTOMER_SUCCESS,
-        });
+        try {
+            const response = await axios.post(`http://localhost:3000/customer/${id}`, {
+                status,
+                notes,
+            });
+            dispatch({
+                type: UPDATE_CUSTOMER_SUCCESS,
+                payload: response.data,
+            });
+        } catch (e) {
+            console.log(e);
+            dispatch({
+                type: UPDATE_CUSTOMER_FAILED,
+            });
+        }
     };
 };

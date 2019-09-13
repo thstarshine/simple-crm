@@ -1,36 +1,80 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchCustomer as fetchCustomerAction } from '../../modules/customer';
+import {
+    fetchCustomer as fetchCustomerAction,
+    updateCustomer as updateCustomerAction,
+} from '../../modules/customer';
 
 const CustomerDetail = props => {
     console.log(props);
-    const { fetchCustomerAction: fetchCustomer, currentCustomer, match, goBack } = props;
+    const {
+        fetchCustomerAction: fetchCustomer,
+        updateCustomerAction: updateCustomer,
+        currentCustomer,
+        match,
+        goBack,
+    } = props;
     const { params } = match;
+    const [notes, updateNotes] = useState([]);
+    const [status, updateStatus] = useState([]);
 
+    // fetch customer data
     useEffect(() => {
         fetchCustomer(params.id);
     }, [fetchCustomer, params]);
 
-    let notes = <></>;
-    if (currentCustomer.CustomerNotes && currentCustomer.CustomerNotes.length) {
-        notes = (
+    // pass data to local state
+    useEffect(() => {
+        updateNotes(currentCustomer.CustomerNotes);
+    }, [currentCustomer.CustomerNotes]);
+    useEffect(() => {
+        updateStatus(currentCustomer.status);
+    }, [currentCustomer.status]);
+
+    const addNote = () => {
+        updateNotes(prev => {
+            const newNote = {
+                description: 'enter new desc here',
+            };
+            return prev.concat([newNote]);
+        });
+    };
+
+    const deleteNote = idx => {
+        updateNotes(prev => {
+            prev[idx].deleted = true;
+            return [...prev];
+        });
+    };
+
+    const changeStatus = e => {
+        updateStatus(e.target.value);
+    };
+
+    let notesBlock = <></>;
+    if (notes && notes.length) {
+        notesBlock = (
             <>
                 <tr>
-                    <td colspan="6">
+                    <td colSpan="6">
                         <strong>Notes</strong>
                     </td>
                 </tr>
-                {currentCustomer.CustomerNotes.map((row, i) => {
-                    return (
-                        <tr>
-                            <td colspan="5">{row.description}</td>
-                            <td>
-                                <button>Delete</button>
-                            </td>
-                        </tr>
-                    );
+                {notes.map((row, i) => {
+                    if (row.deleted) {
+                        return <tr key={i} style={{ display: 'none' }}></tr>;
+                    } else {
+                        return (
+                            <tr key={i}>
+                                <td colSpan="5">{row.description}</td>
+                                <td>
+                                    <button onClick={() => deleteNote(i)}>Delete</button>
+                                </td>
+                            </tr>
+                        );
+                    }
                 })}
             </>
         );
@@ -60,12 +104,23 @@ const CustomerDetail = props => {
                         <td>{currentCustomer.phone}</td>
                         <td>{currentCustomer.address}</td>
                         <td>{currentCustomer.email}</td>
-                        <td>{currentCustomer.status}</td>
+                        <td>
+                            <select value={status} onChange={changeStatus}>
+                                <option value="prospective">prospective</option>
+                                <option value="current">current</option>
+                                <option value="non-active">non-active</option>
+                            </select>
+                        </td>
                     </tr>
-                    {notes}
+                    {notesBlock}
+                    <tr>
+                        <td colSpan="6">
+                            <button onClick={addNote}>Add</button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-            <button>Save</button>
+            <button onClick={() => updateCustomer(currentCustomer.id, status, notes)}>Save</button>
         </div>
     );
 };
@@ -79,6 +134,7 @@ const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
             fetchCustomerAction,
+            updateCustomerAction,
             goBack: () => push(`/customers`),
         },
         dispatch,
