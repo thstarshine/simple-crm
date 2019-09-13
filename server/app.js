@@ -1,6 +1,7 @@
 const path = require('path');
 const AutoLoad = require('fastify-autoload');
 const Swagger = require('fastify-swagger');
+const CORS = require('fastify-cors');
 const Sequelize = require('./sequelize');
 const config = require('./config');
 const models = require('./models');
@@ -63,6 +64,10 @@ module.exports = function(fastify, opts, next) {
                 },
             },
         },
+    });
+
+    fastify.register(CORS, {
+        origin: true,
     });
 
     // This loads all plugins defined in plugins
