@@ -15,6 +15,12 @@ function plugin(fastify, options) {
                 .then(done)
                 .catch(done);
         });
+        if (options.models) {
+            Object.keys(options.models).forEach(name => {
+                // init each model
+                options.models[name](sequelize);
+            });
+        }
     }
 
     if (autoConnect) {
