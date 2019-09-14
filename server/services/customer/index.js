@@ -15,19 +15,9 @@ module.exports = async function(fastify) {
                                 id: { type: 'integer' },
                                 name: { type: 'string' },
                                 phone: { type: 'string' },
-                                address: { type: 'string' },
+
                                 email: { type: 'string' },
                                 status: { type: 'string' },
-                                CustomerNotes: {
-                                    type: 'array',
-                                    items: {
-                                        type: 'object',
-                                        properties: {
-                                            id: { type: 'integer' },
-                                            description: { type: 'string' },
-                                        },
-                                    },
-                                },
                             },
                         },
                     },
@@ -36,15 +26,10 @@ module.exports = async function(fastify) {
         },
         async function(request, reply) {
             const customers = await Customer.findAll({
+                attributes: { exclude: ['address'] },
                 where: {
                     deleted: false,
                 },
-                include: [
-                    {
-                        model: CustomerNote,
-                        where: { deleted: false },
-                    },
-                ],
                 order: ['id'],
             });
             reply.send(customers);
@@ -88,7 +73,6 @@ module.exports = async function(fastify) {
                 include: [
                     {
                         model: CustomerNote,
-                        where: { deleted: false },
                     },
                 ],
             });

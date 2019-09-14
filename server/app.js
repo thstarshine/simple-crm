@@ -5,6 +5,7 @@ const CORS = require('fastify-cors');
 const Sequelize = require('./sequelize');
 const config = require('./config');
 const models = require('./models');
+const { createTestData } = require('./test/data');
 
 module.exports = function(fastify, opts, next) {
     // init db connection and models
@@ -24,18 +25,15 @@ module.exports = function(fastify, opts, next) {
             // define relations
             CustomerNote.belongsTo(Customer, { foreignKey: 'customerId' });
             Customer.hasMany(CustomerNote, { foreignKey: 'customerId' });
-            // Sync all models that aren't already in the database
-            // fastify.sequelize.sync()
-            // Force sync all models
-            fastify.sequelize.sync({ force: true }).then(() => {
-                Customer.create({
-                    name: '123',
+            if (process.env.NODE_ENV === 'production') {
+                // Sync all models that aren't already in the database
+                fastify.sequelize.sync();
+            } else {
+                // Force sync all models
+                fastify.sequelize.sync({ force: true }).then(() => {
+                    return createTestData(Customer, CustomerNote);
                 });
-                CustomerNote.create({
-                    customerId: 1,
-                    description: '123s note',
-                });
-            });
+            }
         });
 
     fastify.register(Swagger, {
