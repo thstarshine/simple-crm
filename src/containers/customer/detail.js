@@ -19,7 +19,7 @@ const CustomerDetail = props => {
         goBack,
     } = props;
     const { params } = match;
-    const [disableSave, updateDisableSave] = useState(false);
+    const [disableAction, updateDisableAction] = useState(false);
     const [notes, updateNotes] = useState([]);
     const [status, updateStatus] = useState('current');
 
@@ -114,11 +114,15 @@ const CustomerDetail = props => {
             dataField: 'id',
             text: 'Delete',
             formatter: (cell, row, rowIndex, extraData) => (
-                <button className="btn btn-dark" onClick={() => extraData.deleteNote(row.idx)}>
+                <button
+                    disabled={extraData.disableAction}
+                    className="btn btn-dark"
+                    onClick={() => extraData.deleteNote(row.idx)}
+                >
                     Delete
                 </button>
             ),
-            formatExtraData: { deleteNote },
+            formatExtraData: { deleteNote, disableAction },
         },
     ];
     const hiddenRowKeys = notes
@@ -134,9 +138,9 @@ const CustomerDetail = props => {
     useEffect(() => {
         if (toastMessage) {
             toast[toastMessage.type](toastMessage.msg);
-            updateDisableSave(true);
+            updateDisableAction(true);
         } else {
-            updateDisableSave(false);
+            updateDisableAction(false);
         }
     }, [toastMessage]);
     // pass data to local state
@@ -172,13 +176,18 @@ const CustomerDetail = props => {
                 bootstrap4={true}
                 hiddenRows={hiddenRowKeys}
             />
-            <button type="button" className="btn btn-warning btn-action" onClick={addNote}>
+            <button
+                type="button"
+                disabled={disableAction}
+                className="btn btn-warning btn-action"
+                onClick={addNote}
+            >
                 Add Note
             </button>
             <div className="row h-100 justify-content-center align-items-center">
                 <button
                     type="button"
-                    disabled={disableSave}
+                    disabled={disableAction}
                     className="btn btn-primary btn-save"
                     onClick={() => updateCustomer(currentCustomer.id, status, notes)}
                 >
