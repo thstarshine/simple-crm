@@ -19,6 +19,8 @@
         "not op_mini all"
     ],
     "dependencies": {
+        "@testing-library/jest-dom": "^4.1.0",
+        "@testing-library/react": "^9.1.4",
         "axios": "^0.19.0",
         "bluebird": "^3.5.5",
         "bootstrap": "^4.3.1",
@@ -39,6 +41,7 @@
         "react-router": "4.4.0-beta.8",
         "react-router-dom": "4.4.0-beta.8",
         "react-smart-toaster": "^0.0.4",
+        "react-testing-library": "^8.0.1",
         "redux": "4.0.4",
         "redux-thunk": "2.3.0",
         "sanitize.css": "7.0.3",

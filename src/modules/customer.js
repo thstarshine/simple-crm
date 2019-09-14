@@ -11,7 +11,7 @@ export const UPDATE_CUSTOMER_SUCCESS = 'UPDATE_CUSTOMER_SUCCESS';
 export const UPDATE_CUSTOMER_FAILED = 'UPDATE_CUSTOMER_FAILED';
 export const CLEAR_TOAST = 'CLEAR_TOAST';
 
-const initialState = {
+export const initialState = {
     customers: [],
     currentCustomer: { id: '', CustomerNotes: [] },
     loading: false,
@@ -103,7 +103,7 @@ export const listCustomers = () => {
                 payload: response.data,
             });
         } catch (e) {
-            console.log(e);
+            // console.log(e);
             dispatch({
                 type: LIST_CUSTOMERS_FAILED,
             });
@@ -129,7 +129,7 @@ export const fetchCustomer = id => {
                 payload: response.data,
             });
         } catch (e) {
-            console.log(e);
+            // console.log(e);
             dispatch({
                 type: FETCH_CUSTOMER_FAILED,
             });
@@ -158,7 +158,7 @@ export const updateCustomer = (id, status, notes) => {
                 payload: response.data,
             });
         } catch (e) {
-            console.log(e);
+            // console.log(e);
             dispatch({
                 type: UPDATE_CUSTOMER_FAILED,
             });

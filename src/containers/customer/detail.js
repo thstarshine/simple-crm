@@ -150,7 +150,7 @@ const CustomerDetail = props => {
     }, [currentCustomer.status]);
 
     return (
-        <div>
+        <div data-testid="customer-detail">
             <p>
                 <button type="button" className="btn btn-info btn-action" onClick={() => goBack()}>
                     Back to List

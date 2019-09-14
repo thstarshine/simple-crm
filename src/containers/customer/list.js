@@ -71,7 +71,7 @@ const CustomerList = props => {
     }, [toastMessage]);
 
     return (
-        <div>
+        <div data-testid="customer-list">
             <p>
                 <button
                     type="button"
