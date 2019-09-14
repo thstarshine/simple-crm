@@ -15,9 +15,9 @@ module.exports = async function(fastify) {
                                 id: { type: 'integer' },
                                 name: { type: 'string' },
                                 phone: { type: 'string' },
-
                                 email: { type: 'string' },
                                 status: { type: 'string' },
+                                createdAt: { type: 'string' },
                             },
                         },
                     },
@@ -49,6 +49,7 @@ module.exports = async function(fastify) {
                             address: { type: 'string' },
                             email: { type: 'string' },
                             status: { type: 'string' },
+                            createdAt: { type: 'string' },
                             CustomerNotes: {
                                 type: 'array',
                                 items: {

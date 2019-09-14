@@ -112,7 +112,7 @@ export const listCustomers = () => {
                 dispatch({
                     type: CLEAR_TOAST,
                 });
-            }, 3000);
+            }, 1500);
         }
     };
 };
@@ -138,7 +138,7 @@ export const fetchCustomer = id => {
                 dispatch({
                     type: CLEAR_TOAST,
                 });
-            }, 3000);
+            }, 1500);
         }
     };
 };
@@ -167,7 +167,7 @@ export const updateCustomer = (id, status, notes) => {
                 dispatch({
                     type: CLEAR_TOAST,
                 });
-            }, 3000);
+            }, 1500);
         }
     };
 };

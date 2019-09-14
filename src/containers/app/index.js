@@ -7,7 +7,12 @@ import { SmartToaster, toast } from 'react-smart-toaster';
 
 const App = () => (
     <div>
-        <SmartToaster store={toast} lightBackground={true} position={'top_center'} />
+        <SmartToaster
+            store={toast}
+            lightBackground={true}
+            position={'top_center'}
+            fadeOutTimer={1500}
+        />
         <header>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <span className="navbar-brand">CRM</span>

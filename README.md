@@ -7,6 +7,12 @@ A simple CRM built with [Fastify](https://github.com/fastify/fastify) and [React
 -   Click `Edit` button to edit customer's `status` and `note` (add/modify/delete).
 -   Using the header column to filter or sort the customer list.
 
+## Prerequisite
+
+-   Node.js 10.x+
+-   Yarn 1.17+
+-   MariaDB 10.x+
+
 ## API documentation
 
 Refer to /documentation for swagger documentation.

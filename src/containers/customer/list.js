@@ -47,6 +47,12 @@ const CustomerList = props => {
             }),
         },
         {
+            dataField: 'createdAt',
+            text: 'CreatedAt',
+            sort: true,
+            filter: textFilter(),
+        },
+        {
             dataField: '',
             text: 'Edit',
             formatter: (cell, row, rowIndex, extraData) => (

@@ -72,6 +72,10 @@ const CustomerDetail = props => {
             text: 'Email',
         },
         {
+            dataField: 'createdAt',
+            text: 'CreatedAt',
+        },
+        {
             dataField: '',
             text: 'Status',
             formatter: (cell, row, rowIndex, extraData) => (
