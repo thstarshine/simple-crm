@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { apiHost } from '../config';
 
 export const LISTING_CUSTOMERS = 'LISTING_CUSTOMERS';
 export const LIST_CUSTOMERS_SUCCESS = 'LIST_CUSTOMERS_SUCCESS';
@@ -97,7 +98,7 @@ export const listCustomers = () => {
             type: LISTING_CUSTOMERS,
         });
         try {
-            const response = await axios.get('http://localhost:3000/customers');
+            const response = await axios.get(`${apiHost}/customers`);
             dispatch({
                 type: LIST_CUSTOMERS_SUCCESS,
                 payload: response.data,
@@ -123,7 +124,7 @@ export const fetchCustomer = id => {
             type: FETCHING_CUSTOMER,
         });
         try {
-            const response = await axios.get(`http://localhost:3000/customer/${id}`);
+            const response = await axios.get(`${apiHost}/customer/${id}`);
             dispatch({
                 type: FETCH_CUSTOMER_SUCCESS,
                 payload: response.data,
@@ -149,7 +150,7 @@ export const updateCustomer = (id, status, notes) => {
             type: UPDATING_CUSTOMER,
         });
         try {
-            const response = await axios.post(`http://localhost:3000/customer/${id}`, {
+            const response = await axios.post(`${apiHost}/customer/${id}`, {
                 status,
                 notes,
             });

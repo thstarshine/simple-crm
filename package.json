@@ -4,11 +4,11 @@
     "version": "0.1.0",
     "scripts": {
         "build": "react-scripts build",
-        "dev-server": "fastify start -l info -P ./server/app.js",
+        "dev-server": "fastify start -l info -P -w ./server/app.js",
         "eject": "react-scripts eject",
         "precommit": "pretty-quick --staged",
         "start": "react-scripts start",
-        "start-server": "fastify start -l info -w ./server/app.js",
+        "start-server": "fastify start -l info -p 8000 ./server/app.js",
         "test": "react-scripts test --env=jsdom",
         "test-server": "tap ./server/test/**/*.test.js"
     },
