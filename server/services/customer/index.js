@@ -74,6 +74,10 @@ module.exports = async function(fastify) {
                 include: [
                     {
                         model: CustomerNote,
+                        where: {
+                            deleted: false,
+                        },
+                        required: false,
                     },
                 ],
             });
@@ -110,7 +114,23 @@ module.exports = async function(fastify) {
                     200: {
                         type: 'object',
                         properties: {
-                            message: { type: 'string' },
+                            id: { type: 'integer' },
+                            name: { type: 'string' },
+                            phone: { type: 'string' },
+                            address: { type: 'string' },
+                            email: { type: 'string' },
+                            status: { type: 'string' },
+                            createdAt: { type: 'string' },
+                            CustomerNotes: {
+                                type: 'array',
+                                items: {
+                                    type: 'object',
+                                    properties: {
+                                        id: { type: 'integer' },
+                                        description: { type: 'string' },
+                                    },
+                                },
+                            },
                         },
                     },
                 },
@@ -155,7 +175,22 @@ module.exports = async function(fastify) {
                     await CustomerNote.update({ description }, { where: { id: noteId } });
                 });
             }
-            reply.send({});
+            const customer = await Customer.findOne({
+                where: {
+                    id: request.params.customerId,
+                    deleted: false,
+                },
+                include: [
+                    {
+                        model: CustomerNote,
+                        where: {
+                            deleted: false,
+                        },
+                        required: false,
+                    },
+                ],
+            });
+            reply.send(customer);
         },
     );
 };

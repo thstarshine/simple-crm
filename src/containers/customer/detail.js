@@ -94,7 +94,6 @@ const CustomerDetail = props => {
             text: 'Notes',
             formatter: (cell, row, rowIndex, extraData) => {
                 if (row.deleted) {
-                    // return <tr key={i} style={{ display: 'none' }}></tr>;
                     return <></>;
                 } else {
                     return (
@@ -104,7 +103,7 @@ const CustomerDetail = props => {
                             className="form-control"
                             placeholder="write some descriptions here"
                             value={row.description}
-                            onChange={e => extraData.updateNote(rowIndex, e)}
+                            onChange={e => extraData.updateNote(row.idx, e)}
                         ></textarea>
                     );
                 }
@@ -115,7 +114,7 @@ const CustomerDetail = props => {
             dataField: 'id',
             text: 'Delete',
             formatter: (cell, row, rowIndex, extraData) => (
-                <button className="btn btn-dark" onClick={() => extraData.deleteNote(rowIndex)}>
+                <button className="btn btn-dark" onClick={() => extraData.deleteNote(row.idx)}>
                     Delete
                 </button>
             ),
@@ -126,7 +125,7 @@ const CustomerDetail = props => {
         .map((note, idx) => {
             return note.deleted ? idx : null;
         })
-        .filter(idx => idx);
+        .filter(idx => idx !== null);
 
     // fetch customer data
     useEffect(() => {

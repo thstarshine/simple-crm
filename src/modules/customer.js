@@ -71,6 +71,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                currentCustomer: action.payload,
                 toastMessage: { type: 'success', msg: 'successfully updated' },
             };
 
