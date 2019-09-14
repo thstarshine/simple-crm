@@ -3,9 +3,57 @@ import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { listCustomers as listCustomersAction } from '../../modules/customer';
+import BootstrapTable from 'react-bootstrap-table-next';
+import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 
 const CustomerList = props => {
     const { listCustomersAction: listCustomers } = props;
+    const columns = [
+        {
+            dataField: 'id',
+            text: 'ID',
+            sort: true,
+            filter: textFilter(),
+        },
+        {
+            dataField: 'name',
+            text: 'Name',
+            sort: true,
+            filter: textFilter(),
+        },
+        {
+            dataField: 'phone',
+            text: 'Phone',
+            sort: true,
+            filter: textFilter(),
+        },
+        {
+            dataField: 'email',
+            text: 'Email',
+            sort: true,
+            filter: textFilter(),
+        },
+        {
+            dataField: 'status',
+            text: 'Status',
+            sort: true,
+            filter: selectFilter({
+                options: {
+                    prospective: 'prospective',
+                    current: 'current',
+                    'non-active': 'non-active',
+                },
+            }),
+        },
+        {
+            dataField: '',
+            text: 'Edit',
+            formatter: (cell, row, rowIndex, extraData) => (
+                <button onClick={() => extraData.props.editCustomer(row.id)}>Edit</button>
+            ),
+            formatExtraData: { props },
+        },
+    ];
 
     useEffect(() => {
         listCustomers();
@@ -19,34 +67,13 @@ const CustomerList = props => {
                     Refresh
                 </button>
             </p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Address</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.customers.map((row, i) => (
-                        <tr key={i}>
-                            <td>{row.id}</td>
-                            <td>{row.name}</td>
-                            <td>{row.phone}</td>
-                            <td>{row.address}</td>
-                            <td>{row.email}</td>
-                            <td>{row.status}</td>
-                            <td>
-                                <button onClick={() => props.editCustomer(row.id)}>Edit</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <BootstrapTable
+                keyField="id"
+                data={props.customers}
+                columns={columns}
+                bootstrap4={true}
+                filter={filterFactory()}
+            />
         </div>
     );
 };

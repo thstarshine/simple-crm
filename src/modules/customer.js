@@ -12,7 +12,7 @@ export const UPDATE_CUSTOMER_FAILED = 'UPDATE_CUSTOMER_FAILED';
 
 const initialState = {
     customers: [],
-    currentCustomer: { CustomerNotes: [] },
+    currentCustomer: { id: '', CustomerNotes: [] },
     loading: false,
 };
 
