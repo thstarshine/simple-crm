@@ -72,7 +72,7 @@ const CustomerDetail = props => {
             dataField: '',
             text: 'Status',
             formatter: (cell, row, rowIndex, extraData) => (
-                <select value={status} onChange={changeStatus}>
+                <select className="form-control" value={status} onChange={changeStatus}>
                     <option value="prospective">prospective</option>
                     <option value="current">current</option>
                     <option value="non-active">non-active</option>
@@ -94,6 +94,7 @@ const CustomerDetail = props => {
                         <textarea
                             rows="1"
                             cols="50"
+                            className="form-control"
                             placeholder="write some descriptions here"
                             value={row.description}
                             onChange={e => extraData.updateNote(rowIndex, e)}
@@ -107,7 +108,9 @@ const CustomerDetail = props => {
             dataField: 'id',
             text: 'Delete',
             formatter: (cell, row, rowIndex, extraData) => (
-                <button onClick={() => extraData.deleteNote(rowIndex)}>Delete</button>
+                <button className="btn btn-dark" onClick={() => extraData.deleteNote(rowIndex)}>
+                    Delete
+                </button>
             ),
             formatExtraData: { deleteNote },
         },
@@ -137,9 +140,10 @@ const CustomerDetail = props => {
 
     return (
         <div>
-            <h1>CustomerDetail</h1>
             <p>
-                <button onClick={() => goBack()}>Back</button>
+                <button type="button" className="btn btn-info btn-action" onClick={() => goBack()}>
+                    Back to List
+                </button>
             </p>
             <BootstrapTable
                 keyField="id"
@@ -154,8 +158,18 @@ const CustomerDetail = props => {
                 bootstrap4={true}
                 hiddenRows={hiddenRowKeys}
             />
-            <button onClick={addNote}>Add</button>
-            <button onClick={() => updateCustomer(currentCustomer.id, status, notes)}>Save</button>
+            <button type="button" className="btn btn-warning btn-action" onClick={addNote}>
+                Add Note
+            </button>
+            <div className="row h-100 justify-content-center align-items-center">
+                <button
+                    type="button"
+                    className="btn btn-primary btn-save"
+                    onClick={() => updateCustomer(currentCustomer.id, status, notes)}
+                >
+                    Save
+                </button>
+            </div>
         </div>
     );
 };

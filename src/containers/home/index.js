@@ -2,47 +2,69 @@ import React from 'react';
 import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { increment, incrementAsync, decrement, decrementAsync } from '../../modules/counter';
 
 const Home = props => (
-    <div>
-        <h1>Home</h1>
-        <p>Count: {props.count}</p>
-
-        <p>
-            <button onClick={props.increment}>Increment</button>
-            <button onClick={props.incrementAsync} disabled={props.isIncrementing}>
-                Increment Async
+    <div className="container h-100 home-desc">
+        <div className="row h-100 justify-content-center align-items-center">
+            <h5>This is a simple CRM system.</h5>
+        </div>
+        <div className="row h-100 justify-content-center align-items-center">
+            <ul>
+                <li>
+                    Back end framework:{' '}
+                    <a
+                        href="https://github.com/fastify/fastify"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Fastify
+                    </a>
+                </li>
+                <li>
+                    Front end framework:{' '}
+                    <a
+                        href="https://github.com/facebook/react"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        React
+                    </a>
+                </li>
+                <li>
+                    Database ORM:{' '}
+                    <a
+                        href="https://github.com/sequelize/sequelize"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Sequelize
+                    </a>
+                </li>
+                <li>
+                    Table display:{' '}
+                    <a
+                        href="https://github.com/react-bootstrap-table/react-bootstrap-table2"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        React-Bootstrap-Table2
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div className="row h-100 justify-content-center align-items-center">
+            <button type="button" className="btn btn-info" onClick={props.changePage}>
+                Live Demo
             </button>
-        </p>
-
-        <p>
-            <button onClick={props.decrement}>Decrement</button>
-            <button onClick={props.decrementAsync} disabled={props.isDecrementing}>
-                Decrement Async
-            </button>
-        </p>
-
-        <p>
-            <button onClick={() => props.changePage()}>Go to about page via redux</button>
-        </p>
+        </div>
     </div>
 );
 
-const mapStateToProps = ({ counter }) => ({
-    count: counter.count,
-    isIncrementing: counter.isIncrementing,
-    isDecrementing: counter.isDecrementing,
-});
-
+const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
-            increment,
-            incrementAsync,
-            decrement,
-            decrementAsync,
-            changePage: () => push('/about-us'),
+            changePage: () => push('/customers'),
         },
         dispatch,
     );

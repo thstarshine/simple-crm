@@ -1,21 +1,33 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import Home from '../home';
-import About from '../about';
 import CustomerList from '../customer/list';
 import CustomerDetail from '../customer/detail';
 
 const App = () => (
     <div>
         <header>
-            <Link to="/">Home</Link>
-            <Link to="/about-us">About</Link>
-            <Link to="/customers">Customers</Link>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <span className="navbar-brand">CRM</span>
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav mr-auto">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/">
+                                Home
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/customers">
+                                Customers
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </header>
 
         <main>
             <Route exact path="/" component={Home} />
-            <Route exact path="/about-us" component={About} />
             <Route exact path="/customers" component={CustomerList} />
             <Route exact path="/customer/:id" component={CustomerDetail} />
         </main>

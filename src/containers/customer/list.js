@@ -49,7 +49,12 @@ const CustomerList = props => {
             dataField: '',
             text: 'Edit',
             formatter: (cell, row, rowIndex, extraData) => (
-                <button onClick={() => extraData.props.editCustomer(row.id)}>Edit</button>
+                <button
+                    className="btn btn-info"
+                    onClick={() => extraData.props.editCustomer(row.id)}
+                >
+                    Edit
+                </button>
             ),
             formatExtraData: { props },
         },
@@ -61,9 +66,13 @@ const CustomerList = props => {
 
     return (
         <div>
-            <h1>CustomerList</h1>
             <p>
-                <button onClick={listCustomers} disabled={props.loading}>
+                <button
+                    type="button"
+                    className="btn btn-info btn-action"
+                    onClick={listCustomers}
+                    disabled={props.loading}
+                >
                     Refresh
                 </button>
             </p>
