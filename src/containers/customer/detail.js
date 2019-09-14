@@ -7,16 +7,19 @@ import {
     updateCustomer as updateCustomerAction,
 } from '../../modules/customer';
 import BootstrapTable from 'react-bootstrap-table-next';
+import { toast } from 'react-smart-toaster';
 
 const CustomerDetail = props => {
     const {
         fetchCustomerAction: fetchCustomer,
         updateCustomerAction: updateCustomer,
         currentCustomer,
+        toastMessage,
         match,
         goBack,
     } = props;
     const { params } = match;
+    const [disableSave, updateDisableSave] = useState(false);
     const [notes, updateNotes] = useState([]);
     const [status, updateStatus] = useState('current');
 
@@ -125,6 +128,14 @@ const CustomerDetail = props => {
     useEffect(() => {
         fetchCustomer(params.id);
     }, [fetchCustomer, params]);
+    useEffect(() => {
+        if (toastMessage) {
+            toast[toastMessage.type](toastMessage.msg);
+            updateDisableSave(true);
+        } else {
+            updateDisableSave(false);
+        }
+    }, [toastMessage]);
     // pass data to local state
     useEffect(() => {
         updateNotes(
@@ -164,6 +175,7 @@ const CustomerDetail = props => {
             <div className="row h-100 justify-content-center align-items-center">
                 <button
                     type="button"
+                    disabled={disableSave}
                     className="btn btn-primary btn-save"
                     onClick={() => updateCustomer(currentCustomer.id, status, notes)}
                 >
@@ -177,6 +189,7 @@ const CustomerDetail = props => {
 const mapStateToProps = ({ customer }) => ({
     loading: customer.loading,
     currentCustomer: customer.currentCustomer,
+    toastMessage: customer.toastMessage,
 });
 
 const mapDispatchToProps = dispatch =>

@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { listCustomers as listCustomersAction } from '../../modules/customer';
 import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
+import { toast } from 'react-smart-toaster';
 
 const CustomerList = props => {
-    const { listCustomersAction: listCustomers } = props;
+    const { listCustomersAction: listCustomers, toastMessage } = props;
     const columns = [
         {
             dataField: 'id',
@@ -63,6 +64,11 @@ const CustomerList = props => {
     useEffect(() => {
         listCustomers();
     }, [listCustomers]);
+    useEffect(() => {
+        if (toastMessage) {
+            toast[toastMessage.type](toastMessage.msg);
+        }
+    }, [toastMessage]);
 
     return (
         <div>
@@ -90,6 +96,7 @@ const CustomerList = props => {
 const mapStateToProps = ({ customer }) => ({
     loading: customer.loading,
     customers: customer.customers,
+    toastMessage: customer.toastMessage,
 });
 
 const mapDispatchToProps = dispatch =>

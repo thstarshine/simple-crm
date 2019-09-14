@@ -9,11 +9,13 @@ export const FETCH_CUSTOMER_FAILED = 'FETCH_CUSTOMER_FAILED';
 export const UPDATING_CUSTOMER = 'UPDATING_CUSTOMER';
 export const UPDATE_CUSTOMER_SUCCESS = 'UPDATE_CUSTOMER_SUCCESS';
 export const UPDATE_CUSTOMER_FAILED = 'UPDATE_CUSTOMER_FAILED';
+export const CLEAR_TOAST = 'CLEAR_TOAST';
 
 const initialState = {
     customers: [],
     currentCustomer: { id: '', CustomerNotes: [] },
     loading: false,
+    toastMessage: null,
 };
 
 export default (state = initialState, action) => {
@@ -35,6 +37,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                toastMessage: { type: 'error', msg: 'failed to list customers' },
             };
 
         case FETCHING_CUSTOMER:
@@ -54,6 +57,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                toastMessage: { type: 'error', msg: 'failed to get customer detail' },
             };
 
         case UPDATING_CUSTOMER:
@@ -66,12 +70,20 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                toastMessage: { type: 'success', msg: 'successfully updated' },
             };
 
         case UPDATE_CUSTOMER_FAILED:
             return {
                 ...state,
                 loading: false,
+                toastMessage: { type: 'error', msg: 'failed to update' },
+            };
+
+        case CLEAR_TOAST:
+            return {
+                ...state,
+                toastMessage: null,
             };
 
         default:
@@ -95,6 +107,12 @@ export const listCustomers = () => {
             dispatch({
                 type: LIST_CUSTOMERS_FAILED,
             });
+        } finally {
+            setTimeout(() => {
+                dispatch({
+                    type: CLEAR_TOAST,
+                });
+            }, 3000);
         }
     };
 };
@@ -115,6 +133,12 @@ export const fetchCustomer = id => {
             dispatch({
                 type: FETCH_CUSTOMER_FAILED,
             });
+        } finally {
+            setTimeout(() => {
+                dispatch({
+                    type: CLEAR_TOAST,
+                });
+            }, 3000);
         }
     };
 };
@@ -138,6 +162,12 @@ export const updateCustomer = (id, status, notes) => {
             dispatch({
                 type: UPDATE_CUSTOMER_FAILED,
             });
+        } finally {
+            setTimeout(() => {
+                dispatch({
+                    type: CLEAR_TOAST,
+                });
+            }, 3000);
         }
     };
 };

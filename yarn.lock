@@ -9542,6 +9542,13 @@ react-scripts@3.1.1:
   optionalDependencies:
     fsevents "2.0.7"
 
+react-smart-toaster@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-smart-toaster/-/react-smart-toaster-0.0.4.tgz#2f8ce7856dc5ab32e8a9f4b12f592df2fc5810fb"
+  integrity sha512-2vphJC7W+W/vLuguHpt/D3cGid4eVkmy8m1XcnsnA2jx/MDywAKiQLFXvn5nGU4g01BK3YVWJQXJzxxkyH/8DA==
+  dependencies:
+    watchable-store "^1.0.4"
+
 react-transition-group@2.5.3:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.5.3.tgz#26de363cab19e5c88ae5dbae105c706cf953bb92"
@@ -11713,6 +11720,11 @@ walker@^1.0.6, walker@^1.0.7, walker@~1.0.5:
   integrity sha1-L3+bj9ENZ3JisYqITijRlhjgKPs=
   dependencies:
     makeerror "1.0.x"
+
+watchable-store@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/watchable-store/-/watchable-store-1.0.4.tgz#3d2a2f52526051eed33d020230cc3252cdb876b1"
+  integrity sha1-PSovUlJgUe7TPQICMMwyUs24drE=
 
 watchpack@^1.6.0:
   version "1.6.0"

@@ -3,9 +3,11 @@ import { Route, Link } from 'react-router-dom';
 import Home from '../home';
 import CustomerList from '../customer/list';
 import CustomerDetail from '../customer/detail';
+import { SmartToaster, toast } from 'react-smart-toaster';
 
 const App = () => (
     <div>
+        <SmartToaster store={toast} lightBackground={true} position={'top_center'} />
         <header>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <span className="navbar-brand">CRM</span>
