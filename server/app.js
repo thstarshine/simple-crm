@@ -27,13 +27,12 @@ module.exports = function(fastify, opts, next) {
             Customer.hasMany(CustomerNote, { foreignKey: 'customerId' });
             if (process.env.NODE_ENV === 'production') {
                 // Sync all models that aren't already in the database
-                fastify.sequelize.sync();
-            } else {
-                // Force sync all models
-                fastify.sequelize.sync({ force: true }).then(() => {
-                    return createTestData(Customer, CustomerNote);
-                });
+                return fastify.sequelize.sync();
             }
+            // Force sync all models
+            return fastify.sequelize.sync({ force: true }).then(() => {
+                return createTestData(Customer, CustomerNote);
+            });
         });
 
     fastify.register(Swagger, {

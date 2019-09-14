@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 module.exports = async function(fastify) {
     const { Customer, CustomerNote } = fastify.sequelize.models;
     fastify.get(
-        '/',
+        '/customers',
         {
             schema: {
                 response: {
@@ -36,7 +36,7 @@ module.exports = async function(fastify) {
         },
     );
     fastify.get(
-        '/:customerId',
+        '/customer/:customerId',
         {
             schema: {
                 response: {
@@ -80,7 +80,7 @@ module.exports = async function(fastify) {
         },
     );
     fastify.post(
-        '/:customerId',
+        '/customer/:customerId',
         {
             schema: {
                 body: {
@@ -158,5 +158,3 @@ module.exports = async function(fastify) {
         },
     );
 };
-
-module.exports.autoPrefix = '/customer';

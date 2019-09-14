@@ -97,7 +97,7 @@ export const listCustomers = () => {
             type: LISTING_CUSTOMERS,
         });
         try {
-            const response = await axios.get('http://localhost:3000/customer');
+            const response = await axios.get('http://localhost:3000/customers');
             dispatch({
                 type: LIST_CUSTOMERS_SUCCESS,
                 payload: response.data,
