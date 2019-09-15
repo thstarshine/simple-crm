@@ -3,7 +3,7 @@
 A simple CRM built with [Fastify](https://github.com/fastify/fastify) and [React](https://github.com/facebook/react).
 
 -   Test data is auto generated when the server boots up.
--   Each customer has `id`, `name`, `phone`, `address`, `email`, `status`, `createdAt` and can have as many `notes` as possible.
+-   Each customer has `id`, `name`, `phone`, `address`, `email`, `status`, `createdAt` and can have any number of `notes`.
 -   Click `Edit` button to edit customer's `status` and `note` (add/modify/delete).
 -   Using the header column to filter or sort the customer list.
 
@@ -44,3 +44,13 @@ Refer to https://crmlab.zapto.org/documentation for swagger documentation.
 ### Run test for front end
 
 `yarn test`
+
+## Build
+
+### Front end
+
+`yarn build`
+
+## Misc
+
+First time to try [Fastify](https://github.com/fastify/fastify), [Sequelize](https://github.com/sequelize/sequelize) and [React Hooks](https://reactjs.org/docs/hooks-intro.html).
