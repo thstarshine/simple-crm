@@ -21,9 +21,14 @@ A simple CRM built with [Fastify](https://github.com/fastify/fastify) and [React
 -   Yarn 1.17+
 -   MariaDB 10.x+
 
-## API documentation
+## Demo
 
-Refer to https://crmlab.zapto.org/documentation for swagger documentation.
+![homepage](./demo/1.png)
+
+![customer list](./demo/2.png)
+
+![note edit page](./demo/3.png)
+
 
 ## Run
 
